@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SignalRDemoHubICallInController.Models.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Alias</th>
+    </thead>
+    <tbody>
+        @foreach(var person in Model){
+            <tr>
+                <td data-personId="@person.ID">@person.ID</td>
+                <td>@person.Name</td>
+                <td>@person.Alias</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<script src="~/Scripts/jquery.signalR-2.1.0.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+    var employeesSignalR = $.connection.personHub
+
+    employeesSignalR.client.updatePerson = function (id, name, alias) {
+        $("td[data-personid=" + "'" + id + "'" + "]").next().text(name);
+        $("td[data-personid=" + "'" + id + "'" + "]").next().next().text(alias);
+       
+    }
+
+    $.connection.hub.start();
+</script>
+

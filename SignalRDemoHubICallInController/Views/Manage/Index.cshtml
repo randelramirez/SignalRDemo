@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SignalRDemoHubICallInController.Models.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Alias</th>
+    </thead>
+    <tbody>
+        @foreach(var person in Model){
+            <tr>
+                <td data-personId="@person.ID">@person.ID</td>
+                <td>@person.Name</td>
+                <td>@person.Alias</td>
+                <td><a href="@Url.Action("Edit", new { id = @person.ID })">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
